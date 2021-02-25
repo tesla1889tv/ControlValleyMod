@@ -100,19 +100,20 @@ namespace ControlValley
                     if (req == null) continue;
 
                     string code = req.GetReqCode();
-                    CrowdDelegate del = Delegate[code];
-                    if (del == null)
+                    try
+                    {
+                        CrowdResponse res = Delegate[code](req);
+                        if (res == null)
+                        {
+                            new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
+                        }
+
+                        res.Send(Socket);
+                    }
+                    catch (KeyNotFoundException)
                     {
                         new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Invalid request '" + code + "'").Send(Socket);
                     }
-
-                    CrowdResponse res = del(req);
-                    if (res == null)
-                    {
-                        new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
-                    }
-
-                    res.Send(Socket);
                 }
             }
             catch (Exception)

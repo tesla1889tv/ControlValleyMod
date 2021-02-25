@@ -289,7 +289,7 @@ namespace ControlValley
 
         public static CrowdResponse WarpMountain(CrowdRequest req)
         {
-            return DoWarp(req, "Mountain", 31, 21);
+            return DoWarp(req, "Mountain", 31, 20);
         }
 
         private static CrowdResponse DoDowngrade(CrowdRequest req, string toolName)
@@ -456,7 +456,7 @@ namespace ControlValley
         {
             try
             {
-                Game1.warpFarmer(name, targetX, targetY, false);
+                Game1.warpFarmer(name, targetX, targetY, true);
             }
             catch (Exception e)
             {
