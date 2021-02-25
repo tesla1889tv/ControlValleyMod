@@ -67,6 +67,7 @@ namespace ControlValley
         public static CrowdResponse EnergizeFull(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int max = Game1.player.MaxStamina;
             float stamina = Game1.player.Stamina;
@@ -76,9 +77,12 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} fully energized {1}", req.GetReqViewer(), Game1.player.Name));
             }
             else
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already at maximum energy";
+            }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse GiveMoney100(CrowdRequest req)
@@ -99,10 +103,14 @@ namespace ControlValley
         public static CrowdResponse GiveStardrop(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int stamina = Game1.player.MaxStamina;
             if (stamina == 508)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already at the highest energy maximum";
+            }
             else
             {
                 stamina += 34;
@@ -111,7 +119,7 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} gave {1} a Stardrop", req.GetReqViewer(), Game1.player.Name));
             }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse Heal10(CrowdRequest req)
@@ -132,13 +140,17 @@ namespace ControlValley
         public static CrowdResponse HealFull(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             if (Interlocked.Exchange(ref Game1.player.health, Game1.player.maxHealth) == 0)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is currently dead";
+            }
             else
                 UI.ShowInfo(String.Format("{0} fully healed {1}", req.GetReqViewer(), Game1.player.Name));
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse Hurt10(CrowdRequest req)
@@ -159,27 +171,37 @@ namespace ControlValley
         public static CrowdResponse Kill(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
             if (Interlocked.Exchange(ref Game1.player.health, 0) == 0)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is currently dead";
+            }
             else
                 UI.ShowInfo(String.Format("{0} killed {1}", req.GetReqViewer(), Game1.player.Name));
-            return new CrowdResponse(req.GetReqID(), status);
+
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse PassOut(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             float stamina = Game1.player.Stamina;
-            if (stamina > -15)
+            if (stamina > -16)
             {
-                Game1.player.Stamina = -15;
+                Game1.player.Stamina = -16;
                 UI.ShowInfo(String.Format("{0} made {1} pass out", req.GetReqViewer(), Game1.player.Name));
             }
             else
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is currently passed out";
+            }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse RemoveMoney100(CrowdRequest req)
@@ -200,10 +222,14 @@ namespace ControlValley
         public static CrowdResponse RemoveStardrop(CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int stamina = Game1.player.MaxStamina;
             if (stamina == 270)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already at lowest energy maximum";
+            }
             else
             {
                 stamina -= 34;
@@ -213,7 +239,7 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} removed a Stardrop from {1}", req.GetReqViewer(), Game1.player.Name));
             }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse Tire10(CrowdRequest req)
@@ -263,16 +289,20 @@ namespace ControlValley
 
         public static CrowdResponse WarpMountain(CrowdRequest req)
         {
-            return DoWarp(req, "Mountain", 31, 20);
+            return DoWarp(req, "Mountain", 31, 21);
         }
 
         private static CrowdResponse DoDowngrade(CrowdRequest req, string toolName)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             Tool tool = Game1.player.getToolFromName(toolName);
             if (tool == null)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = String.Format("{0}'s {1} is already at the lowest upgrade level", Game1.player.Name, toolName);
+            }
             else
             {
                 int level = tool.UpgradeLevel;
@@ -285,12 +315,13 @@ namespace ControlValley
                 }
             }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoEnergizeBy(CrowdRequest req, float percent)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int max = Game1.player.MaxStamina;
             float stamina = Game1.player.Stamina;
@@ -301,9 +332,12 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} energized {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
             }
             else
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already at maximum energy";
+            }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoGiveMoney(CrowdRequest req, int amount)
@@ -316,6 +350,7 @@ namespace ControlValley
         private static CrowdResponse DoHealBy(CrowdRequest req, float percent)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int max = Game1.player.maxHealth;
             int health = (int)Math.Floor(percent * max) + Game1.player.health;
@@ -323,32 +358,36 @@ namespace ControlValley
             {
                 Game1.player.health = 0;
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is currently dead";
             }
             else
                 UI.ShowInfo(String.Format("{0} healed {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoHurtBy(CrowdRequest req, float percent)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int health = Game1.player.health - (int)Math.Floor(percent * Game1.player.maxHealth);
             if (Interlocked.Exchange(ref Game1.player.health, (health < 0) ? 0 : health) == 0)
             {
                 Game1.player.health = 0;
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already dead";
             }
             else
                 UI.ShowInfo(String.Format("{0} hurt {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoRemoveMoney(CrowdRequest req, int amount)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             int money = Game1.player.Money;
             if (money > 0)
@@ -358,14 +397,18 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} removed {2} gold from {1}", req.GetReqViewer(), Game1.player.Name, amount.ToString()));
             }
             else
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " currently has no money";
+            }
             
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoTireBy(CrowdRequest req, float percent)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             float stamina = Game1.player.Stamina;
             if (stamina > 0)
@@ -375,18 +418,25 @@ namespace ControlValley
                 UI.ShowInfo(String.Format("{0} tired {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
             }
             else
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is already passed out";
+            }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoUpgrade(CrowdRequest req, string toolName)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
 
             Tool tool = Game1.player.getToolFromName(toolName);
             if (tool == null)
+            {
                 status = CrowdResponse.Status.STATUS_FAILURE;
+                message = String.Format("{0}'s {1} is already at the highest upgrade level", Game1.player.Name, toolName);
+            }
             else
             {
                 int level = tool.UpgradeLevel;
@@ -399,12 +449,19 @@ namespace ControlValley
                 }
             }
 
-            return new CrowdResponse(req.GetReqID(), status);
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoWarp(CrowdRequest req, string name, int targetX, int targetY)
         {
-            Game1.warpFarmer(name, targetX, targetY, false);
+            try
+            {
+                Game1.warpFarmer(name, targetX, targetY, false);
+            }
+            catch (Exception e)
+            {
+                UI.ShowError(e.Message);
+            }
             UI.ShowInfo(String.Format("{0} warped {1} to the {2}", req.GetReqViewer(), Game1.player.Name, name));
             return new CrowdResponse(req.GetReqID());
         }
