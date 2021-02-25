@@ -1,0 +1,10 @@
+﻿{
+  "Name": "ControlValley",
+  "Author": "TheTexanTesla",
+  "Version": "0.0.1",
+  "Description": "Stardew Valley Support for Twitch Crowd Control",
+  "UniqueID": "TheTexanTesl.ControlValley",
+  "EntryDll": "ControlValley.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": []
+}
