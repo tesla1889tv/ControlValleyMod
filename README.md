@@ -1,4 +1,4 @@
-﻿# ControlValley 0.0.1
+﻿# ControlValley 1.0.0
 
 Stardew Valley Support for Twitch Crowd Control<br>
 Copyright (C) 2021 TheTexanTesla<br>
@@ -7,7 +7,7 @@ LGPL v2.1
 ## Roadmap
 
 - [X] Full equipment upgrade/downgrade support
-- [ ] First release
+- [X] First release
 - [ ] Official Crowd Control adoption
   - [ ] ConcernedApe approval
   - [ ] Warp World approval
@@ -18,10 +18,25 @@ LGPL v2.1
 - [ ] Multiplayer support
   - [ ] ConcernedApe approval
   - [ ] Ensure nothing breaks in multiplayer
+- [ ] *NIX support
 
-## Installation
+## Installation and Use
 
-`TODO`
+**NOTE: Currently offline Crowd Control demo for Windows only**
+
+- Download and install [SMAPI 3.9.2](https://smapi.io)
+- Download and install [Crowd Control SDK](https://forum.warp.world/t/how-to-setup-and-use-the-crowd-control-sdk/5121)
+- Download `ControlValley.zip` from the latest [release](https://github.com/tesla1889tv/ControlValleyMod/releases)
+- Download `StardewControl.cs` from the latest [release](https://github.com/tesla1889tv/ControlValleyMod/releases)
+- Extract `ControlValley.zip` into your SMAPI Mods folder
+- Run `CrowdControl.SDK.exe`
+- Select `Load Pack Source`
+- Locate and select `StardewControl.cs`
+- Select `Connect`
+- Run `StardewModdingAPI.exe`
+- Select various effects from the `CrowdControl.SDK.exe` window
+- ???
+- PROFIT
 
 ## Supported Effects
 
@@ -44,8 +59,11 @@ LGPL v2.1
   - Give/remove 10,000 coins
 - Tool upgrades/downgrades
   - Axe
+  - Fishing rod
   - Hoe
   - Pickaxe
+  - Trash Can
+  - Watering Can
 - Warps
   - Beach
   - Desert
