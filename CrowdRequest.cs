@@ -9,23 +9,31 @@ namespace ControlValley
     public class CrowdRequest
     {
         public static readonly int RECV_BUF = 4096;
+        public static readonly int RECV_TIME = 5000000;
 
         public string code;
         public int id;
         public string type;
         public string viewer;
 
-        public static CrowdRequest Recieve(Socket socket)
+        public static CrowdRequest Recieve(ControlClient client, Socket socket)
         {
             byte[] buf = new byte[RECV_BUF];
             string content = "";
-            int read;
+            int read = 0;
             do
             {
-                read = socket.Receive(buf);
-                if (read < 0) return null;
+                if (!client.IsRunning()) return null;
 
-                content += Encoding.ASCII.GetString(buf);
+                if (socket.Poll(RECV_TIME, SelectMode.SelectRead))
+                {
+                    read = socket.Receive(buf);
+                    if (read < 0) return null;
+
+                    content += Encoding.ASCII.GetString(buf);
+                }
+                else
+                    CrowdResponse.KeepAlive(socket);
             } while (read == 0 || (read == RECV_BUF && buf[RECV_BUF - 1] != 0));
 
             return JsonConvert.DeserializeObject<CrowdRequest>(content);
@@ -35,7 +43,8 @@ namespace ControlValley
         {
             REQUEST_TEST,
             REQUEST_START,
-            REQUEST_STOP
+            REQUEST_STOP,
+            REQUEST_KEEPALIVE=255
         }
 
         public string GetReqCode()
@@ -61,6 +70,11 @@ namespace ControlValley
         public string GetReqViewer()
         {
             return this.viewer;
+        }
+
+        public bool IsKeepAlive()
+        {
+            return id == 0 && type == "255";
         }
     }
 }

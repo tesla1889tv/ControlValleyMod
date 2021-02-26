@@ -34,7 +34,7 @@ using StardewValley;
 
 namespace ControlValley
 {
-    class ControlClient
+    public class ControlClient
     {
         public static readonly string CV_HOST = "127.0.0.1";
         public static readonly int CV_PORT = 51337;
@@ -96,8 +96,8 @@ namespace ControlValley
             {
                 while (Running)
                 {
-                    CrowdRequest req = CrowdRequest.Recieve(Socket);
-                    if (req == null) continue;
+                    CrowdRequest req = CrowdRequest.Recieve(this, Socket);
+                    if (req == null || req.IsKeepAlive()) continue;
 
                     string code = req.GetReqCode();
                     try
@@ -121,6 +121,11 @@ namespace ControlValley
                 UI.ShowError("Disconnected from Crowd Control");
                 Socket.Close();
             }
+        }
+
+        public bool IsRunning()
+        {
+            return Running;
         }
 
         public void Loop()
