@@ -6,13 +6,14 @@ LGPL v2.1
 
 ## Roadmap
 
+- [X] Full equipment upgrade/downgrade support
 - [ ] First release
 - [ ] Official Crowd Control adoption
   - [ ] ConcernedApe approval
   - [ ] Warp World approval
-- [ ] Full equipment upgrade/downgrade support
 - [ ] More warps
 - [ ] Status effects
+- [ ] Upgrade/downgrade backpack
 - [ ] Add/remove items
 - [ ] Multiplayer support
   - [ ] ConcernedApe approval

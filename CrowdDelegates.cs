@@ -39,6 +39,32 @@ namespace ControlValley
             return DoDowngrade(req, "Axe");
         }
 
+        public static CrowdResponse DowngradeFishingRod(CrowdRequest req)
+        {
+            int id = req.GetReqID();
+
+            List<KeyValuePair<string, int>> downgrades = new List<KeyValuePair<string, int>>
+            {
+                new KeyValuePair<string, int>("Iridium Rod", 2),
+                new KeyValuePair<string, int>("Fiberglass Rod", 0),
+                new KeyValuePair<string, int>("Bamboo Pole", 1)
+            };
+
+            foreach (KeyValuePair<string, int> downgrade in downgrades)
+            {
+                Tool tool = Game1.player.getToolFromName(downgrade.Key);
+                if (tool != null)
+                {
+                    tool.UpgradeLevel = downgrade.Value;
+                    UI.ShowInfo(String.Format("{0} downgraded {1}'s Fishing Rod", req.GetReqViewer(), Game1.player.Name));
+
+                    return new CrowdResponse(id);
+                }
+            }
+
+            return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Fishing Rod is already at the lowest upgrade level");
+        }
+
         public static CrowdResponse DowngradeHoe(CrowdRequest req)
         {
             return DoDowngrade(req, "Hoe");
@@ -47,6 +73,30 @@ namespace ControlValley
         public static CrowdResponse DowngradePickaxe(CrowdRequest req)
         {
             return DoDowngrade(req, "Pickaxe");
+        }
+
+        public static CrowdResponse DowngradeTrashCan(CrowdRequest req)
+        {
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            if (Game1.player.trashCanLevel > 0)
+            {
+                Interlocked.Decrement(ref Game1.player.trashCanLevel);
+                UI.ShowInfo(String.Format("{0} downgraded {1}'s Trash Can", req.GetReqViewer(), Game1.player.Name));
+            }
+            else
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + "'s Trash Can is already at the lowest upgrade level";
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
+        }
+
+        public static CrowdResponse DowngradeWateringCan(CrowdRequest req)
+        {
+            return DoDowngrade(req, "Watering Can");
         }
 
         public static CrowdResponse Energize10(CrowdRequest req)
@@ -262,6 +312,32 @@ namespace ControlValley
             return DoUpgrade(req, "Axe");
         }
 
+        public static CrowdResponse UpgradeFishingRod(CrowdRequest req)
+        {
+            int id = req.GetReqID();
+
+            List<KeyValuePair<string, int>> upgrades = new List<KeyValuePair<string, int>>
+            {
+                new KeyValuePair<string, int>("Training Rod", 0),
+                new KeyValuePair<string, int>("Bamboo Pole", 2),
+                new KeyValuePair<string, int>("Fiberglass Rod", 3)
+            };
+
+            foreach (KeyValuePair<string, int> upgrade in upgrades)
+            {
+                Tool tool = Game1.player.getToolFromName(upgrade.Key);
+                if (tool != null)
+                {
+                    tool.UpgradeLevel = upgrade.Value;
+                    UI.ShowInfo(String.Format("{0} upgraded {1}'s Fishing Rod", req.GetReqViewer(), Game1.player.Name));
+
+                    return new CrowdResponse(id);
+                }
+            }
+
+            return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Fishing Rod is already at the highest upgrade level");
+        }
+
         public static CrowdResponse UpgradeHoe(CrowdRequest req)
         {
             return DoUpgrade(req, "Hoe");
@@ -270,6 +346,30 @@ namespace ControlValley
         public static CrowdResponse UpgradePickaxe(CrowdRequest req)
         {
             return DoUpgrade(req, "Pickaxe");
+        }
+
+        public static CrowdResponse UpgradeTrashCan(CrowdRequest req)
+        {
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            if (Game1.player.trashCanLevel < 4)
+            {
+                Interlocked.Increment(ref Game1.player.trashCanLevel);
+                UI.ShowInfo(String.Format("{0} upgraded {1}'s Trash Can", req.GetReqViewer(), Game1.player.Name));
+            }
+            else
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + "'s Trash Can is already at the highest upgrade level";
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
+        }
+
+        public static CrowdResponse UpgradeWateringCan(CrowdRequest req)
+        {
+            return DoUpgrade(req, "Watering Can");
         }
 
         public static CrowdResponse WarpBeach(CrowdRequest req)
@@ -426,7 +526,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        private static CrowdResponse DoUpgrade(CrowdRequest req, string toolName)
+        private static CrowdResponse DoUpgrade(CrowdRequest req, string toolName, int max = 4)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -440,7 +540,7 @@ namespace ControlValley
             else
             {
                 int level = tool.UpgradeLevel;
-                if (level == 4)
+                if (level == max)
                     status = CrowdResponse.Status.STATUS_FAILURE;
                 else
                 {
