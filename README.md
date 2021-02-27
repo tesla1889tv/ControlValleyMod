@@ -64,6 +64,16 @@ LGPL v2.1
   - Ghost
   - Lava Bat
   - Serpent
+- Status effects
+  - Adrenaline Rush for 30 seconds
+  - Darkness for 30 seconds
+  - Frozen for 10 seconds
+  - Invincibility for 30 seconds
+  - Nauseous for 1 minute
+  - Slimed for 10 seconds
+  - Speed Buff for 2 minutes
+  - Tipsy for 2 minutes
+  - Warrior Energy for 30 seconds
 - Tool upgrades/downgrades
   - Axe
   - Fishing rod
