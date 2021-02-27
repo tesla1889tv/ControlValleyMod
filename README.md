@@ -64,6 +64,7 @@ LGPL v2.1
   - Pickaxe
   - Trash Can
   - Watering Can
+  - Weapons
 - Warps
   - Beach
   - Desert

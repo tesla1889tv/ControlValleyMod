@@ -31,6 +31,20 @@ namespace ControlValley
 
     public class CrowdDelegates
     {
+        private static readonly List<KeyValuePair<string, int>> downgradeFishingRods = new List<KeyValuePair<string, int>>
+        {
+            new KeyValuePair<string, int>("Iridium Rod", 2),
+            new KeyValuePair<string, int>("Fiberglass Rod", 0),
+            new KeyValuePair<string, int>("Bamboo Pole", 1)
+        };
+
+        private static readonly List<KeyValuePair<string, int>> upgradeFishingRods = new List<KeyValuePair<string, int>>
+        {
+            new KeyValuePair<string, int>("Training Rod", 0),
+            new KeyValuePair<string, int>("Bamboo Pole", 2),
+            new KeyValuePair<string, int>("Fiberglass Rod", 3)
+        };
+
         public static CrowdResponse DowngradeAxe(CrowdRequest req)
         {
             return DoDowngrade(req, "Axe");
@@ -40,14 +54,7 @@ namespace ControlValley
         {
             int id = req.GetReqID();
 
-            List<KeyValuePair<string, int>> downgrades = new List<KeyValuePair<string, int>>
-            {
-                new KeyValuePair<string, int>("Iridium Rod", 2),
-                new KeyValuePair<string, int>("Fiberglass Rod", 0),
-                new KeyValuePair<string, int>("Bamboo Pole", 1)
-            };
-
-            foreach (KeyValuePair<string, int> downgrade in downgrades)
+            foreach (KeyValuePair<string, int> downgrade in downgradeFishingRods)
             {
                 Tool tool = Game1.player.getToolFromName(downgrade.Key);
                 if (tool != null)
@@ -94,6 +101,19 @@ namespace ControlValley
         public static CrowdResponse DowngradeWateringCan(CrowdRequest req)
         {
             return DoDowngrade(req, "Watering Can");
+        }
+
+        public static CrowdResponse DowngradeWeapon(CrowdRequest req)
+        {
+            int id = req.GetReqID();
+
+            if (WeaponClass.Club.DoDowngrade() || WeaponClass.Sword.DoDowngrade() || WeaponClass.Dagger.DoDowngrade())
+            {
+                UI.ShowInfo(String.Format("{0} downgraded {1}'s Weapon", req.GetReqViewer(), Game1.player.Name));
+                return new CrowdResponse(id);
+            }
+
+            return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Weapon is already at the lowest upgrade level");
         }
 
         public static CrowdResponse Energize10(CrowdRequest req)
@@ -313,14 +333,7 @@ namespace ControlValley
         {
             int id = req.GetReqID();
 
-            List<KeyValuePair<string, int>> upgrades = new List<KeyValuePair<string, int>>
-            {
-                new KeyValuePair<string, int>("Training Rod", 0),
-                new KeyValuePair<string, int>("Bamboo Pole", 2),
-                new KeyValuePair<string, int>("Fiberglass Rod", 3)
-            };
-
-            foreach (KeyValuePair<string, int> upgrade in upgrades)
+            foreach (KeyValuePair<string, int> upgrade in upgradeFishingRods)
             {
                 Tool tool = Game1.player.getToolFromName(upgrade.Key);
                 if (tool != null)
@@ -362,6 +375,19 @@ namespace ControlValley
             }
 
             return new CrowdResponse(req.GetReqID(), status, message);
+        }
+
+        public static CrowdResponse UpgradeWeapon(CrowdRequest req)
+        {
+            int id = req.GetReqID();
+
+            if (WeaponClass.Club.DoUpgrade() || WeaponClass.Sword.DoUpgrade() || WeaponClass.Dagger.DoUpgrade())
+            {
+                UI.ShowInfo(String.Format("{0} upgraded {1}'s Weapon", req.GetReqViewer(), Game1.player.Name));
+                return new CrowdResponse(id);
+            }
+
+            return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Weapon is already at the highest upgrade level");
         }
 
         public static CrowdResponse UpgradeWateringCan(CrowdRequest req)
