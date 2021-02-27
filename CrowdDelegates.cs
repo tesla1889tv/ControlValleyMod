@@ -154,6 +154,51 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
+        public static CrowdResponse GiveBuffAdrenaline(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.adrenalineRush, 30, "Adrenaline Rush");
+        }
+
+        public static CrowdResponse GiveBuffDarkness(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.darkness, 30, "Darkness");
+        }
+
+        public static CrowdResponse GiveBuffFrozen(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.frozen, 10, "Frozen");
+        }
+
+        public static CrowdResponse GiveBuffInvincibility(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.yobaBlessing, 30, "Invincibility");
+        }
+
+        public static CrowdResponse GiveBuffNauseous(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.nauseous, 60, "Nauseous");
+        }
+
+        public static CrowdResponse GiveBuffSlime(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.slimed, 10, "Slimed");
+        }
+
+        public static CrowdResponse GiveBuffSpeed(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.speed, 120, "Speed Buff");
+        }
+
+        public static CrowdResponse GiveBuffTipsy(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.tipsy, 120, "Tipsy");
+        }
+
+        public static CrowdResponse GiveBuffWarrior(CrowdRequest req)
+        {
+            return DoGiveBuff(req, Buff.warriorEnergy, 30, "Warrior Energy");
+        }
+
         public static CrowdResponse GiveMoney100(CrowdRequest req)
         {
             return DoGiveMoney(req, 100);
@@ -493,6 +538,13 @@ namespace ControlValley
             }
 
             return new CrowdResponse(req.GetReqID(), status, message);
+        }
+
+        private static CrowdResponse DoGiveBuff(CrowdRequest req, int buff, int duration, string name)
+        {
+            new Thread(new BuffThread(buff, duration * 1000).Run).Start();
+            UI.ShowInfo(String.Format("{0} gave {1} the {2} effect for {3} seconds", req.GetReqViewer(), Game1.player.Name, name, duration.ToString()));
+            return new CrowdResponse(req.GetReqID());
         }
 
         private static CrowdResponse DoGiveMoney(CrowdRequest req, int amount)

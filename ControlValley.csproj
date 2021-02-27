@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuffThread.cs" />
     <Compile Include="ControlClient.cs" />
     <Compile Include="CrowdDelegates.cs" />
     <Compile Include="CrowdRequest.cs" />

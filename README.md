@@ -8,11 +8,11 @@ LGPL v2.1
 
 - [X] Full equipment upgrade/downgrade support
 - [X] First release
+- [X] Status effects
 - [ ] Official Crowd Control adoption
   - [ ] ConcernedApe approval
   - [ ] Warp World approval
 - [ ] More warps
-- [ ] Status effects
 - [ ] Upgrade/downgrade backpack
 - [ ] Add/remove items
 - [ ] Multiplayer support
