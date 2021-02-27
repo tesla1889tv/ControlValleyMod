@@ -57,6 +57,13 @@ LGPL v2.1
   - Give/remove 100 coins
   - Give/remove 1,000 coins
   - Give/remove 10,000 coins
+- Monster spawns
+  - Bat
+  - Cave Fly
+  - Frost Bat
+  - Ghost
+  - Lava Bat
+  - Serpent
 - Tool upgrades/downgrades
   - Axe
   - Fishing rod

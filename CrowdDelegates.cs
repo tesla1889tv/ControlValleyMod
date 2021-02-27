@@ -23,7 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Monsters;
 
 namespace ControlValley
 {
@@ -309,6 +311,36 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
+        public static CrowdResponse SpawnBat(CrowdRequest req)
+        {
+            return DoSpawn(req, new Bat(GetRandomNear(), 20));
+        }
+
+        public static CrowdResponse SpawnFly(CrowdRequest req)
+        {
+            return DoSpawn(req, new Fly(GetRandomNear()));
+        }
+
+        public static CrowdResponse SpawnGhost(CrowdRequest req)
+        {
+            return DoSpawn(req, new Ghost(GetRandomNear()));
+        }
+
+        public static CrowdResponse SpawnLavaBat(CrowdRequest req)
+        {
+            return DoSpawn(req, new Bat(GetRandomNear(), 100));
+        }
+
+        public static CrowdResponse SpawnFrostBat(CrowdRequest req)
+        {
+            return DoSpawn(req, new Bat(GetRandomNear(), 60));
+        }
+
+        public static CrowdResponse SpawnSerpent(CrowdRequest req)
+        {
+            return DoSpawn(req, new Serpent(GetRandomNear()));
+        }
+
         public static CrowdResponse Tire10(CrowdRequest req)
         {
             return DoTireBy(req, 0.1f);
@@ -528,6 +560,13 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
+        private static CrowdResponse DoSpawn(CrowdRequest req, Monster monster)
+        {
+            Game1.player.currentLocation.addCharacter(monster);
+            UI.ShowInfo(String.Format("{0} spawned a {1} near {2}", req.GetReqViewer(), monster.Name, Game1.player.Name));
+            return new CrowdResponse(req.GetReqID());
+        }
+
         private static CrowdResponse DoTireBy(CrowdRequest req, float percent)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
@@ -587,6 +626,16 @@ namespace ControlValley
             }
             UI.ShowInfo(String.Format("{0} warped {1} to the {2}", req.GetReqViewer(), Game1.player.Name, name));
             return new CrowdResponse(req.GetReqID());
+        }
+
+        private static readonly float MAX_RADIUS = 400;
+
+        private static Vector2 GetRandomNear()
+        {
+            Random random = new Random();
+            return Game1.player.Position + new Vector2(
+                (float)((random.NextDouble() * 2 * MAX_RADIUS) - MAX_RADIUS),
+                (float)((random.NextDouble() * 2 * MAX_RADIUS) - MAX_RADIUS));
         }
     }
 }
