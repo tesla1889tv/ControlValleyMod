@@ -26,6 +26,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Monsters;
+using StardewBoots = StardewValley.Objects.Boots;
 
 namespace ControlValley
 {
@@ -50,6 +51,36 @@ namespace ControlValley
         public static CrowdResponse DowngradeAxe(CrowdRequest req)
         {
             return DoDowngrade(req, "Axe");
+        }
+
+        public static CrowdResponse DowngradeBoots(CrowdRequest req)
+        {
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            StardewBoots boots = Game1.player.boots.Get();
+            if (boots == null)
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is not currently wearing Boots";
+            }
+            else
+            {
+                boots = Boots.GetDowngrade(boots.getStatsIndex());
+                if (boots == null)
+                {
+                    status = CrowdResponse.Status.STATUS_FAILURE;
+                    message = Game1.player.Name + "'s Boots are already at the lowest upgrade level";
+                }
+                else
+                {
+                    Game1.player.boots.Value = boots;
+                    Game1.player.changeShoeColor(boots.indexInColorSheet);
+                    UI.ShowInfo(String.Format("{0} downgraded {1}'s Boots", req.GetReqViewer(), Game1.player.Name));
+                }
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse DowngradeFishingRod(CrowdRequest req)
@@ -404,6 +435,36 @@ namespace ControlValley
         public static CrowdResponse UpgradeAxe(CrowdRequest req)
         {
             return DoUpgrade(req, "Axe");
+        }
+
+        public static CrowdResponse UpgradeBoots(CrowdRequest req)
+        {
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            StardewBoots boots = Game1.player.boots.Get();
+            if (boots == null)
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + " is not currently wearing Boots";
+            }
+            else
+            {
+                boots = Boots.GetUpgrade(boots.getStatsIndex());
+                if (boots == null)
+                {
+                    status = CrowdResponse.Status.STATUS_FAILURE;
+                    message = Game1.player.Name + "'s Boots are already at the highest upgrade level";
+                }
+                else
+                {
+                    Game1.player.boots.Value = boots;
+                    Game1.player.changeShoeColor(boots.indexInColorSheet);
+                    UI.ShowInfo(String.Format("{0} upgraded {1}'s Boots", req.GetReqViewer(), Game1.player.Name));
+                }
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse UpgradeFishingRod(CrowdRequest req)

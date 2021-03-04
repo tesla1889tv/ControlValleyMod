@@ -46,6 +46,7 @@ namespace ControlValley
             Delegate = new Dictionary<string, CrowdDelegate>()
             {
                 {"downgrade_axe", CrowdDelegates.DowngradeAxe},
+                {"downgrade_boots", CrowdDelegates.DowngradeBoots},
                 {"downgrade_fishingrod", CrowdDelegates.DowngradeFishingRod},
                 {"downgrade_hoe", CrowdDelegates.DowngradeHoe},
                 {"downgrade_pickaxe", CrowdDelegates.DowngradePickaxe},
@@ -92,6 +93,7 @@ namespace ControlValley
                 {"tire_25", CrowdDelegates.Tire25},
                 {"tire_50", CrowdDelegates.Tire50},
                 {"upgrade_axe", CrowdDelegates.UpgradeAxe},
+                {"upgrade_boots", CrowdDelegates.UpgradeBoots},
                 {"upgrade_fishingrod", CrowdDelegates.UpgradeFishingRod},
                 {"upgrade_hoe", CrowdDelegates.UpgradeHoe},
                 {"upgrade_pickaxe", CrowdDelegates.UpgradePickaxe},
