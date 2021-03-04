@@ -76,6 +76,7 @@ LGPL v2.1
   - Warrior Energy for 30 seconds
 - Tool upgrades/downgrades
   - Axe
+  - Boots
   - Fishing rod
   - Hoe
   - Pickaxe
