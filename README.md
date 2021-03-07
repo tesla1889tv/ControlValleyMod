@@ -1,4 +1,4 @@
-﻿# ControlValley 1.1.0
+﻿# ControlValley 1.2.0
 
 Stardew Valley Support for Twitch Crowd Control<br>
 Copyright (C) 2021 TheTexanTesla<br>
