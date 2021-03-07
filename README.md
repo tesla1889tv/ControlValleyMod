@@ -27,8 +27,8 @@ LGPL v2.1
 
 - Download and install [SMAPI 3.9.2](https://smapi.io)
 - Download and install [Crowd Control SDK](https://forum.warp.world/t/how-to-setup-and-use-the-crowd-control-sdk/5121)
-- Download `ControlValley.zip` from the latest [release](https://github.com/tesla1889tv/ControlValleyMod/releases)
-- Download `StardewControl.cs` from the latest [release](https://github.com/tesla1889tv/ControlValleyMod/releases)
+- Download [`ControlValley.zip`](https://github.com/tesla1889tv/ControlValleyMod/releases/latest/download/ControlValley.zip)
+- Download [`StardewControl.cs`](https://github.com/tesla1889tv/ControlValleyMod/releases/latest/download/StardewControl.cs)
 - Extract `ControlValley.zip` into your SMAPI Mods folder
 - Run `CrowdControl.SDK.exe`
 - Select `Load Pack Source`
