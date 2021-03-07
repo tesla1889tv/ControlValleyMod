@@ -548,9 +548,39 @@ namespace ControlValley
             return DoWarp(req, "Farm", 48, 7);
         }
 
+        public static CrowdResponse WarpIsland(CrowdRequest req)
+        {
+            return DoWarp(req, "IslandSouth", 11, 11);
+        }
+
         public static CrowdResponse WarpMountain(CrowdRequest req)
         {
             return DoWarp(req, "Mountain", 31, 20);
+        }
+
+        public static CrowdResponse WarpRailroad(CrowdRequest req)
+        {
+            return DoWarp(req, "Railroad", 35, 52);
+        }
+
+        public static CrowdResponse WarpSewer(CrowdRequest req)
+        {
+            return DoWarp(req, "Sewer", 16, 13);
+        }
+
+        public static CrowdResponse WarpTower(CrowdRequest req)
+        {
+            return DoWarp(req, "Forest", 5, 29);
+        }
+
+        public static CrowdResponse WarpTown(CrowdRequest req)
+        {
+            return DoWarp(req, "Town", 29, 67);
+        }
+
+        public static CrowdResponse WarpWoods(CrowdRequest req)
+        {
+            return DoWarp(req, "Woods", 55, 15);
         }
 
         private static CrowdResponse DoDowngrade(CrowdRequest req, string toolName)
@@ -731,12 +761,14 @@ namespace ControlValley
         {
             try
             {
-                Game1.warpFarmer(name, targetX, targetY, true);
+                Game1.warpFarmer(name, targetX, targetY, false);
             }
             catch (Exception e)
             {
                 UI.ShowError(e.Message);
             }
+            if (name == "Forest")
+                name = "Wizard's Tower";
             UI.ShowInfo(String.Format("{0} warped {1} to the {2}", req.GetReqViewer(), Game1.player.Name, name));
             return new CrowdResponse(req.GetReqID());
         }

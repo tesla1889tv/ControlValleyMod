@@ -9,10 +9,10 @@ LGPL v2.1
 - [X] Full equipment upgrade/downgrade support
 - [X] First release
 - [X] Status effects
+- [X] More warps
 - [ ] Official Crowd Control adoption
   - [ ] ConcernedApe approval
   - [ ] Warp World approval
-- [ ] More warps
 - [ ] Upgrade/downgrade backpack
 - [ ] Add/remove items
 - [ ] Multiplayer support
@@ -87,4 +87,10 @@ LGPL v2.1
   - Beach
   - Desert
   - Farm
+  - Island
   - Mountain
+  - Railroad
+  - Sewer
+  - Wizard's Tower
+  - Town
+  - Woods

@@ -103,7 +103,13 @@ namespace ControlValley
                 {"warp_beach", CrowdDelegates.WarpBeach},
                 {"warp_desert", CrowdDelegates.WarpDesert},
                 {"warp_farm", CrowdDelegates.WarpFarm},
+                {"warp_island", CrowdDelegates.WarpIsland},
                 {"warp_mountain", CrowdDelegates.WarpMountain},
+                {"warp_railroad", CrowdDelegates.WarpRailroad},
+                {"warp_sewer", CrowdDelegates.WarpSewer},
+                {"warp_tower", CrowdDelegates.WarpTower},
+                {"warp_town", CrowdDelegates.WarpTown},
+                {"warp_woods", CrowdDelegates.WarpWoods}
             };
         }
 
