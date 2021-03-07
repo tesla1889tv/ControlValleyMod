@@ -10,10 +10,11 @@ LGPL v2.1
 - [X] First release
 - [X] Status effects
 - [X] More warps
+- [X] Upgrade backpack
 - [ ] Official Crowd Control adoption
   - [ ] ConcernedApe approval
   - [ ] Warp World approval
-- [ ] Upgrade/downgrade backpack
+- [ ] Downgrade backpack
 - [ ] Add/remove items
 - [ ] Multiplayer support
   - [ ] ConcernedApe approval
@@ -76,6 +77,7 @@ LGPL v2.1
   - Warrior Energy for 30 seconds
 - Tool upgrades/downgrades
   - Axe
+  - Backpack (downgrade TBD)
   - Boots
   - Fishing rod
   - Hoe

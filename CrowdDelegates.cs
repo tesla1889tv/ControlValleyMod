@@ -27,6 +27,7 @@ using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Monsters;
 using StardewBoots = StardewValley.Objects.Boots;
+using StardewChest = StardewValley.Objects.Chest;
 
 namespace ControlValley
 {
@@ -435,6 +436,25 @@ namespace ControlValley
         public static CrowdResponse UpgradeAxe(CrowdRequest req)
         {
             return DoUpgrade(req, "Axe");
+        }
+
+        public static CrowdResponse UpgradeBackpack(CrowdRequest req)
+        {
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            if (Game1.player.items.Capacity == 36)
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = Game1.player.Name + "'s Backpack is already at maximum capacity";
+            }
+            else
+            {
+                Game1.player.increaseBackpackSize(12);
+                UI.ShowInfo(String.Format("{0} upgraded {1}'s Backpack", req.GetReqViewer(), Game1.player.Name));
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         public static CrowdResponse UpgradeBoots(CrowdRequest req)

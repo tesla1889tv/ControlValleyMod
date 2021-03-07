@@ -93,6 +93,7 @@ namespace ControlValley
                 {"tire_25", CrowdDelegates.Tire25},
                 {"tire_50", CrowdDelegates.Tire50},
                 {"upgrade_axe", CrowdDelegates.UpgradeAxe},
+                {"upgrade_backpack", CrowdDelegates.UpgradeBackpack},
                 {"upgrade_boots", CrowdDelegates.UpgradeBoots},
                 {"upgrade_fishingrod", CrowdDelegates.UpgradeFishingRod},
                 {"upgrade_hoe", CrowdDelegates.UpgradeHoe},
