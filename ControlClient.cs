@@ -25,6 +25,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using StardewModdingAPI.Events;
+using StardewValley;
+using StardewValley.Monsters;
 
 namespace ControlValley
 {
@@ -35,13 +38,18 @@ namespace ControlValley
 
         private Dictionary<string, CrowdDelegate> Delegate { get; set; }
         private IPEndPoint Endpoint { get; set; }
+        private Dictionary<GameLocation, List<Monster>> Monsters { get; set; }
         private bool Running { get; set; }
+        private bool Saving { get; set; }
         private Socket Socket { get; set; }
 
         public ControlClient()
         {
             Endpoint = new IPEndPoint(IPAddress.Parse(CV_HOST), CV_PORT);
+            Monsters = new Dictionary<GameLocation, List<Monster>>();
             Running = true;
+            Saving = false;
+            Socket = null;
 
             Delegate = new Dictionary<string, CrowdDelegate>()
             {
@@ -125,10 +133,13 @@ namespace ControlValley
                     CrowdRequest req = CrowdRequest.Recieve(this, Socket);
                     if (req == null || req.IsKeepAlive()) continue;
 
+                    while (Saving)
+                        Thread.Yield();
+
                     string code = req.GetReqCode();
                     try
                     {
-                        CrowdResponse res = Delegate[code](req);
+                        CrowdResponse res = Delegate[code](this, req);
                         if (res == null)
                         {
                             new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
@@ -180,9 +191,33 @@ namespace ControlValley
             }
         }
 
+        public void OnSaved(object sender, SavedEventArgs args)
+        {
+            Saving = false;
+        }
+
+        public void OnSaving(object sender, SavingEventArgs args)
+        {
+            Saving = true;
+            foreach (KeyValuePair<GameLocation, List<Monster>> pair in Monsters)
+            {
+                foreach (Monster monster in pair.Value)
+                    pair.Key.characters.Remove(monster);
+                pair.Value.Clear();
+            }
+        }
+
         public void Stop()
         {
             Running = false;
+        }
+
+        public void TrackMonster(Monster monster)
+        {
+            GameLocation location = Game1.player.currentLocation;
+            if (!Monsters.ContainsKey(location))
+                Monsters[location] = new List<Monster>();
+            Monsters[location].Add(monster);
         }
     }
 }

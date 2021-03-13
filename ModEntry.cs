@@ -45,6 +45,8 @@ namespace ControlValley
         private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
         {
             if (client == null) return;
+            Helper.Events.GameLoop.Saved -= client.OnSaved;
+            Helper.Events.GameLoop.Saving -= client.OnSaving;
             client.Stop();
             client = null;
         }
@@ -53,6 +55,8 @@ namespace ControlValley
         {
             if (!Context.IsWorldReady || client != null) return;
             client = new ControlClient();
+            Helper.Events.GameLoop.Saved += client.OnSaved;
+            Helper.Events.GameLoop.Saving += client.OnSaving;
             new Thread(new ThreadStart(client.Loop)).Start();
         }
     }

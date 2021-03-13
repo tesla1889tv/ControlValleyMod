@@ -31,7 +31,7 @@ using StardewChest = StardewValley.Objects.Chest;
 
 namespace ControlValley
 {
-    public delegate CrowdResponse CrowdDelegate(CrowdRequest req);
+    public delegate CrowdResponse CrowdDelegate(ControlClient client, CrowdRequest req);
 
     public class CrowdDelegates
     {
@@ -49,12 +49,12 @@ namespace ControlValley
             new KeyValuePair<string, int>("Fiberglass Rod", 3)
         };
 
-        public static CrowdResponse DowngradeAxe(CrowdRequest req)
+        public static CrowdResponse DowngradeAxe(ControlClient client, CrowdRequest req)
         {
             return DoDowngrade(req, "Axe");
         }
 
-        public static CrowdResponse DowngradeBoots(CrowdRequest req)
+        public static CrowdResponse DowngradeBoots(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -84,7 +84,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse DowngradeFishingRod(CrowdRequest req)
+        public static CrowdResponse DowngradeFishingRod(ControlClient client, CrowdRequest req)
         {
             int id = req.GetReqID();
 
@@ -103,17 +103,17 @@ namespace ControlValley
             return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Fishing Rod is already at the lowest upgrade level");
         }
 
-        public static CrowdResponse DowngradeHoe(CrowdRequest req)
+        public static CrowdResponse DowngradeHoe(ControlClient client, CrowdRequest req)
         {
             return DoDowngrade(req, "Hoe");
         }
 
-        public static CrowdResponse DowngradePickaxe(CrowdRequest req)
+        public static CrowdResponse DowngradePickaxe(ControlClient client, CrowdRequest req)
         {
             return DoDowngrade(req, "Pickaxe");
         }
 
-        public static CrowdResponse DowngradeTrashCan(CrowdRequest req)
+        public static CrowdResponse DowngradeTrashCan(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -132,12 +132,12 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse DowngradeWateringCan(CrowdRequest req)
+        public static CrowdResponse DowngradeWateringCan(ControlClient client, CrowdRequest req)
         {
             return DoDowngrade(req, "Watering Can");
         }
 
-        public static CrowdResponse DowngradeWeapon(CrowdRequest req)
+        public static CrowdResponse DowngradeWeapon(ControlClient client, CrowdRequest req)
         {
             int id = req.GetReqID();
 
@@ -150,22 +150,22 @@ namespace ControlValley
             return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Weapon is already at the lowest upgrade level");
         }
 
-        public static CrowdResponse Energize10(CrowdRequest req)
+        public static CrowdResponse Energize10(ControlClient client, CrowdRequest req)
         {
             return DoEnergizeBy(req, 0.1f);
         }
 
-        public static CrowdResponse Energize25(CrowdRequest req)
+        public static CrowdResponse Energize25(ControlClient client, CrowdRequest req)
         {
             return DoEnergizeBy(req, 0.25f);
         }
 
-        public static CrowdResponse Energize50(CrowdRequest req)
+        public static CrowdResponse Energize50(ControlClient client, CrowdRequest req)
         {
             return DoEnergizeBy(req, 0.5f);
         }
 
-        public static CrowdResponse EnergizeFull(CrowdRequest req)
+        public static CrowdResponse EnergizeFull(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -186,67 +186,67 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse GiveBuffAdrenaline(CrowdRequest req)
+        public static CrowdResponse GiveBuffAdrenaline(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.adrenalineRush, 30, "Adrenaline Rush");
         }
 
-        public static CrowdResponse GiveBuffDarkness(CrowdRequest req)
+        public static CrowdResponse GiveBuffDarkness(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.darkness, 30, "Darkness");
         }
 
-        public static CrowdResponse GiveBuffFrozen(CrowdRequest req)
+        public static CrowdResponse GiveBuffFrozen(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.frozen, 10, "Frozen");
         }
 
-        public static CrowdResponse GiveBuffInvincibility(CrowdRequest req)
+        public static CrowdResponse GiveBuffInvincibility(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.yobaBlessing, 30, "Invincibility");
         }
 
-        public static CrowdResponse GiveBuffNauseous(CrowdRequest req)
+        public static CrowdResponse GiveBuffNauseous(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.nauseous, 60, "Nauseous");
         }
 
-        public static CrowdResponse GiveBuffSlime(CrowdRequest req)
+        public static CrowdResponse GiveBuffSlime(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.slimed, 10, "Slimed");
         }
 
-        public static CrowdResponse GiveBuffSpeed(CrowdRequest req)
+        public static CrowdResponse GiveBuffSpeed(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.speed, 120, "Speed Buff");
         }
 
-        public static CrowdResponse GiveBuffTipsy(CrowdRequest req)
+        public static CrowdResponse GiveBuffTipsy(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.tipsy, 120, "Tipsy");
         }
 
-        public static CrowdResponse GiveBuffWarrior(CrowdRequest req)
+        public static CrowdResponse GiveBuffWarrior(ControlClient client, CrowdRequest req)
         {
             return DoGiveBuff(req, Buff.warriorEnergy, 30, "Warrior Energy");
         }
 
-        public static CrowdResponse GiveMoney100(CrowdRequest req)
+        public static CrowdResponse GiveMoney100(ControlClient client, CrowdRequest req)
         {
             return DoGiveMoney(req, 100);
         }
 
-        public static CrowdResponse GiveMoney1000(CrowdRequest req)
+        public static CrowdResponse GiveMoney1000(ControlClient client, CrowdRequest req)
         {
             return DoGiveMoney(req, 1000);
         }
 
-        public static CrowdResponse GiveMoney10000(CrowdRequest req)
+        public static CrowdResponse GiveMoney10000(ControlClient client, CrowdRequest req)
         {
             return DoGiveMoney(req, 10000);
         }
 
-        public static CrowdResponse GiveStardrop(CrowdRequest req)
+        public static CrowdResponse GiveStardrop(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -268,22 +268,22 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse Heal10(CrowdRequest req)
+        public static CrowdResponse Heal10(ControlClient client, CrowdRequest req)
         {
             return DoHealBy(req, 0.1f);
         }
 
-        public static CrowdResponse Heal25(CrowdRequest req)
+        public static CrowdResponse Heal25(ControlClient client, CrowdRequest req)
         {
             return DoHealBy(req, 0.25f);
         }
 
-        public static CrowdResponse Heal50(CrowdRequest req)
+        public static CrowdResponse Heal50(ControlClient client, CrowdRequest req)
         {
             return DoHealBy(req, 0.5f);
         }
 
-        public static CrowdResponse HealFull(CrowdRequest req)
+        public static CrowdResponse HealFull(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -299,22 +299,22 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse Hurt10(CrowdRequest req)
+        public static CrowdResponse Hurt10(ControlClient client, CrowdRequest req)
         {
             return DoHurtBy(req, 0.1f);
         }
 
-        public static CrowdResponse Hurt25(CrowdRequest req)
+        public static CrowdResponse Hurt25(ControlClient client, CrowdRequest req)
         {
             return DoHurtBy(req, 0.25f);
         }
 
-        public static CrowdResponse Hurt50(CrowdRequest req)
+        public static CrowdResponse Hurt50(ControlClient client, CrowdRequest req)
         {
             return DoHurtBy(req, 0.5f);
         }
 
-        public static CrowdResponse Kill(CrowdRequest req)
+        public static CrowdResponse Kill(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -330,7 +330,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse PassOut(CrowdRequest req)
+        public static CrowdResponse PassOut(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -350,22 +350,22 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse RemoveMoney100(CrowdRequest req)
+        public static CrowdResponse RemoveMoney100(ControlClient client, CrowdRequest req)
         {
             return DoRemoveMoney(req, 100);
         }
 
-        public static CrowdResponse RemoveMoney1000(CrowdRequest req)
+        public static CrowdResponse RemoveMoney1000(ControlClient client, CrowdRequest req)
         {
             return DoRemoveMoney(req, 1000);
         }
 
-        public static CrowdResponse RemoveMoney10000(CrowdRequest req)
+        public static CrowdResponse RemoveMoney10000(ControlClient client, CrowdRequest req)
         {
             return DoRemoveMoney(req, 10000);
         }
 
-        public static CrowdResponse RemoveStardrop(CrowdRequest req)
+        public static CrowdResponse RemoveStardrop(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -388,57 +388,57 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse SpawnBat(CrowdRequest req)
+        public static CrowdResponse SpawnBat(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Bat(GetRandomNear(), 20));
+            return DoSpawn(client, req, new Bat(GetRandomNear(), 20));
         }
 
-        public static CrowdResponse SpawnFly(CrowdRequest req)
+        public static CrowdResponse SpawnFly(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Fly(GetRandomNear()));
+            return DoSpawn(client, req, new Fly(GetRandomNear()));
         }
 
-        public static CrowdResponse SpawnGhost(CrowdRequest req)
+        public static CrowdResponse SpawnGhost(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Ghost(GetRandomNear()));
+            return DoSpawn(client, req, new Ghost(GetRandomNear()));
         }
 
-        public static CrowdResponse SpawnLavaBat(CrowdRequest req)
+        public static CrowdResponse SpawnLavaBat(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Bat(GetRandomNear(), 100));
+            return DoSpawn(client, req, new Bat(GetRandomNear(), 100));
         }
 
-        public static CrowdResponse SpawnFrostBat(CrowdRequest req)
+        public static CrowdResponse SpawnFrostBat(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Bat(GetRandomNear(), 60));
+            return DoSpawn(client, req, new Bat(GetRandomNear(), 60));
         }
 
-        public static CrowdResponse SpawnSerpent(CrowdRequest req)
+        public static CrowdResponse SpawnSerpent(ControlClient client, CrowdRequest req)
         {
-            return DoSpawn(req, new Serpent(GetRandomNear()));
+            return DoSpawn(client, req, new Serpent(GetRandomNear()));
         }
 
-        public static CrowdResponse Tire10(CrowdRequest req)
+        public static CrowdResponse Tire10(ControlClient client, CrowdRequest req)
         {
             return DoTireBy(req, 0.1f);
         }
 
-        public static CrowdResponse Tire25(CrowdRequest req)
+        public static CrowdResponse Tire25(ControlClient client, CrowdRequest req)
         {
             return DoTireBy(req, 0.25f);
         }
 
-        public static CrowdResponse Tire50(CrowdRequest req)
+        public static CrowdResponse Tire50(ControlClient client, CrowdRequest req)
         {
             return DoTireBy(req, 0.5f);
         }
 
-        public static CrowdResponse UpgradeAxe(CrowdRequest req)
+        public static CrowdResponse UpgradeAxe(ControlClient client, CrowdRequest req)
         {
             return DoUpgrade(req, "Axe");
         }
 
-        public static CrowdResponse UpgradeBackpack(CrowdRequest req)
+        public static CrowdResponse UpgradeBackpack(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -457,7 +457,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse UpgradeBoots(CrowdRequest req)
+        public static CrowdResponse UpgradeBoots(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -487,7 +487,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse UpgradeFishingRod(CrowdRequest req)
+        public static CrowdResponse UpgradeFishingRod(ControlClient client, CrowdRequest req)
         {
             int id = req.GetReqID();
 
@@ -506,17 +506,17 @@ namespace ControlValley
             return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Fishing Rod is already at the highest upgrade level");
         }
 
-        public static CrowdResponse UpgradeHoe(CrowdRequest req)
+        public static CrowdResponse UpgradeHoe(ControlClient client, CrowdRequest req)
         {
             return DoUpgrade(req, "Hoe");
         }
 
-        public static CrowdResponse UpgradePickaxe(CrowdRequest req)
+        public static CrowdResponse UpgradePickaxe(ControlClient client, CrowdRequest req)
         {
             return DoUpgrade(req, "Pickaxe");
         }
 
-        public static CrowdResponse UpgradeTrashCan(CrowdRequest req)
+        public static CrowdResponse UpgradeTrashCan(ControlClient client, CrowdRequest req)
         {
             CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
             string message = "";
@@ -535,7 +535,7 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        public static CrowdResponse UpgradeWeapon(CrowdRequest req)
+        public static CrowdResponse UpgradeWeapon(ControlClient client, CrowdRequest req)
         {
             int id = req.GetReqID();
 
@@ -548,57 +548,57 @@ namespace ControlValley
             return new CrowdResponse(id, CrowdResponse.Status.STATUS_FAILURE, Game1.player.Name + "'s Weapon is already at the highest upgrade level");
         }
 
-        public static CrowdResponse UpgradeWateringCan(CrowdRequest req)
+        public static CrowdResponse UpgradeWateringCan(ControlClient client, CrowdRequest req)
         {
             return DoUpgrade(req, "Watering Can");
         }
 
-        public static CrowdResponse WarpBeach(CrowdRequest req)
+        public static CrowdResponse WarpBeach(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Beach", 20, 4);
         }
 
-        public static CrowdResponse WarpDesert(CrowdRequest req)
+        public static CrowdResponse WarpDesert(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Desert", 35, 43);
         }
 
-        public static CrowdResponse WarpFarm(CrowdRequest req)
+        public static CrowdResponse WarpFarm(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Farm", 48, 7);
         }
 
-        public static CrowdResponse WarpIsland(CrowdRequest req)
+        public static CrowdResponse WarpIsland(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "IslandSouth", 11, 11);
         }
 
-        public static CrowdResponse WarpMountain(CrowdRequest req)
+        public static CrowdResponse WarpMountain(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Mountain", 31, 20);
         }
 
-        public static CrowdResponse WarpRailroad(CrowdRequest req)
+        public static CrowdResponse WarpRailroad(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Railroad", 35, 52);
         }
 
-        public static CrowdResponse WarpSewer(CrowdRequest req)
+        public static CrowdResponse WarpSewer(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Sewer", 16, 13);
         }
 
-        public static CrowdResponse WarpTower(CrowdRequest req)
+        public static CrowdResponse WarpTower(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Forest", 5, 29);
         }
 
-        public static CrowdResponse WarpTown(CrowdRequest req)
+        public static CrowdResponse WarpTown(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Town", 29, 67);
         }
 
-        public static CrowdResponse WarpWoods(CrowdRequest req)
+        public static CrowdResponse WarpWoods(ControlClient client, CrowdRequest req)
         {
             return DoWarp(req, "Woods", 55, 15);
         }
@@ -723,9 +723,10 @@ namespace ControlValley
             return new CrowdResponse(req.GetReqID(), status, message);
         }
 
-        private static CrowdResponse DoSpawn(CrowdRequest req, Monster monster)
+        private static CrowdResponse DoSpawn(ControlClient client, CrowdRequest req, Monster monster)
         {
             Game1.player.currentLocation.addCharacter(monster);
+            client.TrackMonster(monster);
             UI.ShowInfo(String.Format("{0} spawned a {1} near {2}", req.GetReqViewer(), monster.Name, Game1.player.Name));
             return new CrowdResponse(req.GetReqID());
         }
