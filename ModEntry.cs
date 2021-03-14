@@ -57,7 +57,8 @@ namespace ControlValley
             client = new ControlClient();
             Helper.Events.GameLoop.Saved += client.OnSaved;
             Helper.Events.GameLoop.Saving += client.OnSaving;
-            new Thread(new ThreadStart(client.Loop)).Start();
+            new Thread(new ThreadStart(client.NetworkLoop)).Start();
+            new Thread(new ThreadStart(client.RequestLoop)).Start();
         }
     }
 }

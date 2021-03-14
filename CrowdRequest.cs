@@ -19,6 +19,7 @@ namespace ControlValley
             byte[] buf = new byte[RECV_BUF];
             string content = "";
             int read = 0;
+
             do
             {
                 if (!client.IsRunning()) return null;

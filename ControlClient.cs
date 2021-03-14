@@ -39,6 +39,7 @@ namespace ControlValley
         private Dictionary<string, CrowdDelegate> Delegate { get; set; }
         private IPEndPoint Endpoint { get; set; }
         private Dictionary<GameLocation, List<Monster>> Monsters { get; set; }
+        private Queue<CrowdRequest> Requests { get; set; }
         private bool Running { get; set; }
         private bool Saving { get; set; }
         private Socket Socket { get; set; }
@@ -47,6 +48,7 @@ namespace ControlValley
         {
             Endpoint = new IPEndPoint(IPAddress.Parse(CV_HOST), CV_PORT);
             Monsters = new Dictionary<GameLocation, List<Monster>>();
+            Requests = new Queue<CrowdRequest>();
             Running = true;
             Saving = false;
             Socket = null;
@@ -133,24 +135,8 @@ namespace ControlValley
                     CrowdRequest req = CrowdRequest.Recieve(this, Socket);
                     if (req == null || req.IsKeepAlive()) continue;
 
-                    while (Saving)
-                        Thread.Yield();
-
-                    string code = req.GetReqCode();
-                    try
-                    {
-                        CrowdResponse res = Delegate[code](this, req);
-                        if (res == null)
-                        {
-                            new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
-                        }
-
-                        res.Send(Socket);
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Invalid request '" + code + "'").Send(Socket);
-                    }
+                    lock (Requests)
+                        Requests.Enqueue(req);
                 }
             }
             catch (Exception)
@@ -165,7 +151,7 @@ namespace ControlValley
             return Running;
         }
 
-        public void Loop()
+        public void NetworkLoop()
         {
             while (Running)
             {
@@ -204,6 +190,47 @@ namespace ControlValley
                 foreach (Monster monster in pair.Value)
                     pair.Key.characters.Remove(monster);
                 pair.Value.Clear();
+            }
+        }
+
+        public void RequestLoop()
+        {
+            while (Running)
+            {
+                try
+                {
+                    while (Saving || Game1.isTimePaused)
+                        Thread.Yield();
+
+                    CrowdRequest req = null;
+                    lock (Requests)
+                    {
+                        if (Requests.Count == 0)
+                            continue;
+                        req = Requests.Dequeue();
+                    }
+
+                    string code = req.GetReqCode();
+                    try
+                    {
+                        CrowdResponse res = Delegate[code](this, req);
+                        if (res == null)
+                        {
+                            new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
+                        }
+
+                        res.Send(Socket);
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Invalid request '" + code + "'").Send(Socket);
+                    }
+                }
+                catch (Exception)
+                {
+                    UI.ShowError("Disconnected from Crowd Control");
+                    Socket.Close();
+                }
             }
         }
 
