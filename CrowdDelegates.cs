@@ -782,6 +782,7 @@ namespace ControlValley
         {
             try
             {
+                Game1.player.resetState();
                 Game1.warpFarmer(name, targetX, targetY, false);
             }
             catch (Exception e)
