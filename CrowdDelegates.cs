@@ -790,6 +790,8 @@ namespace ControlValley
             }
             if (name == "Forest")
                 name = "Wizard's Tower";
+            else if (name == "IslandSouth")
+                name = "Island";
             UI.ShowInfo(String.Format("{0} warped {1} to the {2}", req.GetReqViewer(), Game1.player.Name, name));
             return new CrowdResponse(req.GetReqID());
         }
