@@ -36,12 +36,15 @@ namespace ControlValley
         public static readonly string CV_HOST = "127.0.0.1";
         public static readonly int CV_PORT = 51337;
 
+        private static readonly string[] _no_spawn = {"hospital", "islandsouth"};
+
         private Dictionary<string, CrowdDelegate> Delegate { get; set; }
         private IPEndPoint Endpoint { get; set; }
         private Dictionary<GameLocation, List<Monster>> Monsters { get; set; }
         private Queue<CrowdRequest> Requests { get; set; }
         private bool Running { get; set; }
         private bool Saving { get; set; }
+        private bool Spawn { get; set; }
         private Socket Socket { get; set; }
 
         public ControlClient()
@@ -51,6 +54,7 @@ namespace ControlValley
             Requests = new Queue<CrowdRequest>();
             Running = true;
             Saving = false;
+            Spawn = true;
             Socket = null;
 
             Delegate = new Dictionary<string, CrowdDelegate>()
@@ -146,10 +150,8 @@ namespace ControlValley
             }
         }
 
-        public bool IsRunning()
-        {
-            return Running;
-        }
+        public bool CanSpawn() => Spawn;
+        public bool IsRunning() => Running;
 
         public void NetworkLoop()
         {
@@ -191,6 +193,11 @@ namespace ControlValley
                     pair.Key.characters.Remove(monster);
                 pair.Value.Clear();
             }
+        }
+
+        public void OnWarped(object sender, WarpedEventArgs args)
+        {
+            Spawn = Array.IndexOf(_no_spawn, args.NewLocation.Name.ToLower()) < 0;
         }
 
         public void RequestLoop()

@@ -725,10 +725,22 @@ namespace ControlValley
 
         private static CrowdResponse DoSpawn(ControlClient client, CrowdRequest req, Monster monster)
         {
-            Game1.player.currentLocation.addCharacter(monster);
-            client.TrackMonster(monster);
-            UI.ShowInfo(String.Format("{0} spawned a {1} near {2}", req.GetReqViewer(), monster.Name, Game1.player.Name));
-            return new CrowdResponse(req.GetReqID());
+            CrowdResponse.Status status = CrowdResponse.Status.STATUS_SUCCESS;
+            string message = "";
+
+            if (client.CanSpawn())
+            {
+                Game1.player.currentLocation.addCharacter(monster);
+                client.TrackMonster(monster);
+                UI.ShowInfo(String.Format("{0} spawned a {1} near {2}", req.GetReqViewer(), monster.Name, Game1.player.Name));
+            }
+            else
+            {
+                status = CrowdResponse.Status.STATUS_FAILURE;
+                message = $"Cannot spawn {monster.Name} because {Game1.player.Name} is at {Game1.player.currentLocation.Name}";
+            }
+
+            return new CrowdResponse(req.GetReqID(), status, message);
         }
 
         private static CrowdResponse DoTireBy(CrowdRequest req, float percent)

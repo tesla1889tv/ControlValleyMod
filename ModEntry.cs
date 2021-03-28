@@ -47,6 +47,7 @@ namespace ControlValley
             if (client == null) return;
             Helper.Events.GameLoop.Saved -= client.OnSaved;
             Helper.Events.GameLoop.Saving -= client.OnSaving;
+            Helper.Events.Player.Warped -= client.OnWarped;
             client.Stop();
             client = null;
         }
@@ -57,6 +58,7 @@ namespace ControlValley
             client = new ControlClient();
             Helper.Events.GameLoop.Saved += client.OnSaved;
             Helper.Events.GameLoop.Saving += client.OnSaving;
+            Helper.Events.Player.Warped += client.OnWarped;
             new Thread(new ThreadStart(client.NetworkLoop)).Start();
             new Thread(new ThreadStart(client.RequestLoop)).Start();
         }
