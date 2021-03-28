@@ -223,14 +223,14 @@ namespace ControlValley
                         CrowdResponse res = Delegate[code](this, req);
                         if (res == null)
                         {
-                            new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Request error for '" + code + "'").Send(Socket);
+                            new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, $"Request error for '{code}'").Send(Socket);
                         }
 
                         res.Send(Socket);
                     }
                     catch (KeyNotFoundException)
                     {
-                        new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, "Invalid request '" + code + "'").Send(Socket);
+                        new CrowdResponse(req.GetReqID(), CrowdResponse.Status.STATUS_FAILURE, $"Request error for '{code}'").Send(Socket);
                     }
                 }
                 catch (Exception)

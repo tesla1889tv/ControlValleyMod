@@ -77,7 +77,7 @@ namespace ControlValley
                 {
                     Game1.player.boots.Value = boots;
                     Game1.player.changeShoeColor(boots.indexInColorSheet);
-                    UI.ShowInfo(String.Format("{0} downgraded {1}'s Boots", req.GetReqViewer(), Game1.player.Name));
+                    UI.ShowInfo($"{req.GetReqViewer()} downgraded {Game1.player.Name}'s Boots");
                 }
             }
 
@@ -94,7 +94,7 @@ namespace ControlValley
                 if (tool != null)
                 {
                     tool.UpgradeLevel = downgrade.Value;
-                    UI.ShowInfo(String.Format("{0} downgraded {1}'s Fishing Rod", req.GetReqViewer(), Game1.player.Name));
+                    UI.ShowInfo($"{req.GetReqViewer()} downgraded {Game1.player.Name}'s Fishing Rod");
 
                     return new CrowdResponse(id);
                 }
@@ -121,7 +121,7 @@ namespace ControlValley
             if (Game1.player.trashCanLevel > 0)
             {
                 Interlocked.Decrement(ref Game1.player.trashCanLevel);
-                UI.ShowInfo(String.Format("{0} downgraded {1}'s Trash Can", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} downgraded {Game1.player.Name}'s Trash Can");
             }
             else
             {
@@ -143,7 +143,7 @@ namespace ControlValley
 
             if (WeaponClass.Club.DoDowngrade() || WeaponClass.Sword.DoDowngrade() || WeaponClass.Dagger.DoDowngrade())
             {
-                UI.ShowInfo(String.Format("{0} downgraded {1}'s Weapon", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} downgraded {Game1.player.Name}'s Weapon");
                 return new CrowdResponse(id);
             }
 
@@ -175,7 +175,7 @@ namespace ControlValley
             if (stamina < max)
             {
                 Game1.player.Stamina = max;
-                UI.ShowInfo(String.Format("{0} fully energized {1}", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} fully energized {Game1.player.Name}");
             }
             else
             {
@@ -262,7 +262,7 @@ namespace ControlValley
                 stamina += 34;
                 Game1.player.MaxStamina = stamina;
                 Game1.player.Stamina = stamina;
-                UI.ShowInfo(String.Format("{0} gave {1} a Stardrop", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} gave {Game1.player.Name} a Stardrop");
             }
 
             return new CrowdResponse(req.GetReqID(), status, message);
@@ -294,7 +294,7 @@ namespace ControlValley
                 message = Game1.player.Name + " is currently dead";
             }
             else
-                UI.ShowInfo(String.Format("{0} fully healed {1}", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} fully healed {Game1.player.Name}");
 
             return new CrowdResponse(req.GetReqID(), status, message);
         }
@@ -325,7 +325,7 @@ namespace ControlValley
                 message = Game1.player.Name + " is currently dead";
             }
             else
-                UI.ShowInfo(String.Format("{0} killed {1}", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} killed {Game1.player.Name}");
 
             return new CrowdResponse(req.GetReqID(), status, message);
         }
@@ -339,7 +339,7 @@ namespace ControlValley
             if (stamina > -16)
             {
                 Game1.player.Stamina = -16;
-                UI.ShowInfo(String.Format("{0} made {1} pass out", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} made {Game1.player.Name} pass out");
             }
             else
             {
@@ -382,7 +382,7 @@ namespace ControlValley
                 Game1.player.MaxStamina = stamina;
                 if (Game1.player.Stamina > stamina)
                     Game1.player.Stamina = stamina;
-                UI.ShowInfo(String.Format("{0} removed a Stardrop from {1}", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} removed a Stardrop from {Game1.player.Name}");
             }
 
             return new CrowdResponse(req.GetReqID(), status, message);
@@ -451,7 +451,7 @@ namespace ControlValley
             else
             {
                 Game1.player.increaseBackpackSize(12);
-                UI.ShowInfo(String.Format("{0} upgraded {1}'s Backpack", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s Backpack");
             }
 
             return new CrowdResponse(req.GetReqID(), status, message);
@@ -480,7 +480,7 @@ namespace ControlValley
                 {
                     Game1.player.boots.Value = boots;
                     Game1.player.changeShoeColor(boots.indexInColorSheet);
-                    UI.ShowInfo(String.Format("{0} upgraded {1}'s Boots", req.GetReqViewer(), Game1.player.Name));
+                    UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s Boots");
                 }
             }
 
@@ -497,7 +497,7 @@ namespace ControlValley
                 if (tool != null)
                 {
                     tool.UpgradeLevel = upgrade.Value;
-                    UI.ShowInfo(String.Format("{0} upgraded {1}'s Fishing Rod", req.GetReqViewer(), Game1.player.Name));
+                    UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s Fishing Rod");
 
                     return new CrowdResponse(id);
                 }
@@ -524,7 +524,7 @@ namespace ControlValley
             if (Game1.player.trashCanLevel < 4)
             {
                 Interlocked.Increment(ref Game1.player.trashCanLevel);
-                UI.ShowInfo(String.Format("{0} upgraded {1}'s Trash Can", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s Trash Can");
             }
             else
             {
@@ -541,7 +541,7 @@ namespace ControlValley
 
             if (WeaponClass.Club.DoUpgrade() || WeaponClass.Sword.DoUpgrade() || WeaponClass.Dagger.DoUpgrade())
             {
-                UI.ShowInfo(String.Format("{0} upgraded {1}'s Weapon", req.GetReqViewer(), Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s Weapon");
                 return new CrowdResponse(id);
             }
 
@@ -612,7 +612,7 @@ namespace ControlValley
             if (tool == null)
             {
                 status = CrowdResponse.Status.STATUS_FAILURE;
-                message = String.Format("{0}'s {1} is already at the lowest upgrade level", Game1.player.Name, toolName);
+                message = $"{Game1.player.Name}'s {toolName} is already at the lowest upgrade level";
             }
             else
             {
@@ -622,7 +622,7 @@ namespace ControlValley
                 else
                 {
                     tool.UpgradeLevel = level - 1;
-                    UI.ShowInfo(String.Format("{0} downgraded {1}'s {2}", req.GetReqViewer(), Game1.player.Name, toolName));
+                    UI.ShowInfo($"{req.GetReqViewer()} downgraded {Game1.player.Name}'s {toolName}");
                 }
             }
 
@@ -640,7 +640,7 @@ namespace ControlValley
             {
                 stamina += percent * max;
                 Game1.player.Stamina = (stamina > max) ? max : stamina;
-                UI.ShowInfo(String.Format("{0} energized {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
+                UI.ShowInfo($"{req.GetReqViewer()} energized {Game1.player.Name} by {(int)Math.Floor(100 * percent)}%");
             }
             else
             {
@@ -654,14 +654,14 @@ namespace ControlValley
         private static CrowdResponse DoGiveBuff(CrowdRequest req, int buff, int duration, string name)
         {
             new Thread(new BuffThread(buff, duration * 1000).Run).Start();
-            UI.ShowInfo(String.Format("{0} gave {1} the {2} effect for {3} seconds", req.GetReqViewer(), Game1.player.Name, name, duration.ToString()));
+            UI.ShowInfo($"{req.GetReqViewer()} gave {Game1.player.Name} the {name} effect for {duration} seconds");
             return new CrowdResponse(req.GetReqID());
         }
 
         private static CrowdResponse DoGiveMoney(CrowdRequest req, int amount)
         {
             Game1.player.addUnearnedMoney(amount);
-            UI.ShowInfo(String.Format("{0} gave {1} {2} gold", req.GetReqViewer(), Game1.player.Name, amount.ToString()));
+            UI.ShowInfo($"{req.GetReqViewer()} gave {Game1.player.Name} {amount} coins");
             return new CrowdResponse(req.GetReqID());
         }
 
@@ -679,7 +679,7 @@ namespace ControlValley
                 message = Game1.player.Name + " is currently dead";
             }
             else
-                UI.ShowInfo(String.Format("{0} healed {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
+                UI.ShowInfo($"{req.GetReqViewer()} healed {Game1.player.Name} by {(int)Math.Floor(100 * percent)}%");
 
             return new CrowdResponse(req.GetReqID(), status, message);
         }
@@ -697,7 +697,7 @@ namespace ControlValley
                 message = Game1.player.Name + " is already dead";
             }
             else
-                UI.ShowInfo(String.Format("{0} hurt {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
+                UI.ShowInfo($"{req.GetReqViewer()} hurt {Game1.player.Name} by {(int)Math.Floor(100 * percent)}%");
 
             return new CrowdResponse(req.GetReqID(), status, message);
         }
@@ -712,7 +712,7 @@ namespace ControlValley
             {
                 money -= amount;
                 Game1.player.Money = (money < 0) ? 0 : money;
-                UI.ShowInfo(String.Format("{0} removed {2} gold from {1}", req.GetReqViewer(), Game1.player.Name, amount.ToString()));
+                UI.ShowInfo($"{req.GetReqViewer()} removed {amount} coins from {Game1.player.Name}");
             }
             else
             {
@@ -732,7 +732,7 @@ namespace ControlValley
             {
                 Game1.player.currentLocation.addCharacter(monster);
                 client.TrackMonster(monster);
-                UI.ShowInfo(String.Format("{0} spawned a {1} near {2}", req.GetReqViewer(), monster.Name, Game1.player.Name));
+                UI.ShowInfo($"{req.GetReqViewer()} spawned a {monster.Name} near {Game1.player.Name}");
             }
             else
             {
@@ -753,7 +753,7 @@ namespace ControlValley
             {
                 stamina -= percent * Game1.player.MaxStamina;
                 Game1.player.Stamina = (stamina < 0) ? 0 : stamina;
-                UI.ShowInfo(String.Format("{0} tired {1} by {2}%", req.GetReqViewer(), Game1.player.Name, (int)Math.Floor(100 * percent)));
+                UI.ShowInfo($"{req.GetReqViewer()} tired {Game1.player.Name} by {(int)Math.Floor(100 * percent)}%");
             }
             else
             {
@@ -773,7 +773,7 @@ namespace ControlValley
             if (tool == null)
             {
                 status = CrowdResponse.Status.STATUS_FAILURE;
-                message = String.Format("{0}'s {1} is already at the highest upgrade level", Game1.player.Name, toolName);
+                message = $"{Game1.player.Name}'s {toolName} is already at the highest upgrade level";
             }
             else
             {
@@ -783,7 +783,7 @@ namespace ControlValley
                 else
                 {
                     tool.UpgradeLevel = level + 1;
-                    UI.ShowInfo(String.Format("{0} upgraded {1}'s {2}", req.GetReqViewer(), Game1.player.Name, toolName));
+                    UI.ShowInfo($"{req.GetReqViewer()} upgraded {Game1.player.Name}'s {toolName}");
                 }
             }
 
@@ -805,7 +805,7 @@ namespace ControlValley
                 name = "Wizard's Tower";
             else if (name == "IslandSouth")
                 name = "Island";
-            UI.ShowInfo(String.Format("{0} warped {1} to the {2}", req.GetReqViewer(), Game1.player.Name, name));
+            UI.ShowInfo($"{req.GetReqViewer()} warped {Game1.player.Name} to the {name}");
             return new CrowdResponse(req.GetReqID());
         }
 
