@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Globalization;
+using System.Threading;
 using StardewValley;
 
 namespace ControlValley
@@ -16,6 +17,8 @@ namespace ControlValley
 
         public void Run()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            
             buff.addBuff();
             Thread.Sleep(duration);
             buff.removeBuff();
