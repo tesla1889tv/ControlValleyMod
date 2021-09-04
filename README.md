@@ -16,9 +16,7 @@ LGPL v2.1
 - [X] Status effects
 - [X] More warps
 - [X] Upgrade backpack
-- [ ] Official Crowd Control adoption
-  - [ ] ConcernedApe approval
-  - [ ] Warp World approval
+- [X] Official Crowd Control adoption
 - [ ] Downgrade backpack
 - [ ] Add/remove items
 - [ ] Multiplayer support
