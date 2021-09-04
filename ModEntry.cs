@@ -1,7 +1,7 @@
 ﻿/*
  * ControlValley
  * Stardew Valley Support for Twitch Crowd Control
- * Copyright (C) 2021 TheTexanTesla
+ * Copyright (C) 2021 TerribleTable
  * LGPL v2.1
  * 
  * This library is free software; you can redistribute it and/or

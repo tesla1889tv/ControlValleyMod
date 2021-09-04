@@ -1,7 +1,7 @@
 ﻿# ControlValley 1.2.3
 
 Stardew Valley Support for Twitch Crowd Control<br>
-Copyright (C) 2021 TheTexanTesla<br>
+Copyright (C) 2021 TerribleTable<br>
 LGPL v2.1
 
 ## Roadmap
