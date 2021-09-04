@@ -4,6 +4,11 @@ Stardew Valley Support for Twitch Crowd Control<br>
 Copyright (C) 2021 TerribleTable<br>
 LGPL v2.1
 
+## Contributors
+
+- [TerribleTable](https://twitter.com/tablesfordays)
+- [BambooleanLogic](https://twitter.com/BambooleanLogic)
+
 ## Roadmap
 
 - [X] Full equipment upgrade/downgrade support
