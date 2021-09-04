@@ -29,7 +29,8 @@ LGPL v2.1
 - Download and install [SMAPI 3.9.2](https://smapi.io)
 - Download [`ControlValley.zip`](https://github.com/tesla1889tv/ControlValleyMod/releases/latest/download/ControlValley.zip)
 - Extract `ControlValley.zip` into your SMAPI Mods folder
-- Run `CrowdControl.SDK.exe`
+- Start “Stardew Valley (PC)” from the Crowd Control desktop app
+- Start Stardew Valley using `StardewModdingAPI.exe` in your install folder
 - ???
 - PROFIT
 
